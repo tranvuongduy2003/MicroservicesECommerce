@@ -7,7 +7,7 @@ services:
   orderdb:
     container_name: orderdb
     environment:
-      SA_PASSWORD: "08042003"
+      SA_PASSWORD: "@Tranvuongduy2003"
       ACCEPT_EULA: "Y"
     restart: always
     volumes:
@@ -17,9 +17,9 @@ services:
   
   # productdb: mysql
   productdb:
-    container_name: mysqldb
+    container_name: productdb
     environment:
-      MYSQL_ROOT_PASSWORD: "08042003"
+      MYSQL_ROOT_PASSWORD: "@Tranvuongduy2003"
     restart: always
     volumes:
       - mysql_data:/var/lib/mysql
@@ -28,10 +28,10 @@ services:
   
   # postgresdb: postgres
   customerdb:
-    container_name: postgresdb
+    container_name: customerdb
     environment:
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=08042003
+      - POSTGRES_PASSWORD=@Tranvuongduy2003
       - POSTGRES_DB=DiscountDb
     restart: always
     ports:
@@ -67,8 +67,8 @@ services:
   pgadmin:
     container_name: pgadmin
     environment:
-      - PGADMIN_DEFAULT_EMAIL=admin@microservices_e_commerce.com
-      - PGADMIN_DEFAULT_PASSWORD=admin1234
+      - PGADMIN_DEFAULT_EMAIL=admin@gm.com
+      - PGADMIN_DEFAULT_PASSWORD=@Tranvuongduy2003
     restart: always
     ports:
       - "5050:80"
