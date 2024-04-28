@@ -31,7 +31,7 @@ services:
     container_name: customerdb
     environment:
       - POSTGRES_USER=admin
-      - POSTGRES_PASSWORD=@Tranvuongduy2003
+      - POSTGRES_PASSWORD=08042003
       - POSTGRES_DB=CustomerDb
     restart: always
     ports:
@@ -68,7 +68,7 @@ services:
     container_name: pgadmin
     environment:
       - PGADMIN_DEFAULT_EMAIL=admin@gm.com
-      - PGADMIN_DEFAULT_PASSWORD=@Tranvuongduy2003
+      - PGADMIN_DEFAULT_PASSWORD=08042003
     restart: always
     ports:
       - "5050:80"
@@ -117,4 +117,16 @@ services:
       - productdb
     ports:
       - "6002:80"
+    restart: always
+
+  customer.api:
+    container_name: customer.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings:DefaultConnectionString=Server=customerdb;Port=5432;Database=CustomerDb;User Id=admin;Password=08042003"
+    depends_on:
+      - productdb
+    ports:
+      - "6003:80"
     restart: always
