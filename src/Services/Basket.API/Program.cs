@@ -9,10 +9,12 @@ Log.Information($"Starting {builder.Environment.EnvironmentName} up");
 
 try
 {
-    // Add services to the container.
     builder.Host.UseSerilog(Serilogger.Configure);
     builder.Host.AddAppConfigurations();
 
+    // Add services to the container.
+    builder.Services.ConfigureServices();
+    builder.Services.ConfigureRedis(builder.Configuration);
     builder.Services.Configure<RouteOptions>(options
         => options.LowercaseUrls = true);
 
@@ -36,8 +38,7 @@ try
 
     app.MapControllers();
 
-    app.SeedCustomerData()
-        .Run();
+    app.Run();
 }
 catch (Exception ex)
 {
