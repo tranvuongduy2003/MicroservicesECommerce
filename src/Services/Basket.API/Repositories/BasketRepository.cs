@@ -27,7 +27,7 @@ namespace Basket.API.Repositories
             return string.IsNullOrEmpty(baskets) ? null : _serializeService.Deserialize<Cart>(baskets);
         }
 
-        public async Task<Cart> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
+        public async Task<Cart?> UpdateBasket(Cart cart, DistributedCacheEntryOptions options = null)
         {
             _logger.Information($"BEGIN: UpdateBasket for {cart.Username}");
 
