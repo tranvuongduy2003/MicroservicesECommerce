@@ -126,7 +126,7 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - "ConnectionStrings:DefaultConnectionString=Server=customerdb;Port=5432;Database=CustomerDb;User Id=admin;Password=08042003"
     depends_on:
-      - productdb
+      - customerdb
     ports:
       - "6003:80"
     restart: always
@@ -138,7 +138,19 @@ services:
       - ASPNETCORE_URLS=http://+:80
       - "CacheSettings:ConnectionString=basketdb:6379"
     depends_on:
-      - productdb
+      - basketdb
     ports:
       - "6004:80"
+    restart: always
+
+  ordering.api:
+    container_name: ordering.api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - "ConnectionStrings:DefaultConnectionString=Server=orderdb;Database=OrderDb;User Id=sa;Password=@Tranvuongduy2003;Multipleactiveresultsets=true"
+    depends_on:
+      - orderdb
+    ports:
+      - "6005:80"
     restart: always
