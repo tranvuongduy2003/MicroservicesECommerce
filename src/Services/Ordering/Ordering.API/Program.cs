@@ -1,4 +1,5 @@
 using Common.Logging;
+using Ordering.API.Extensions;
 using Ordering.Infrastructure;
 using Serilog;
 
@@ -10,6 +11,7 @@ Log.Information("Starting Ordering API up");
 try
 {
     // Add services to the container.
+    builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.AddInfrastructureServices(builder.Configuration);
 
     builder.Services.AddControllers();
