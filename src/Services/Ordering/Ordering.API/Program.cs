@@ -10,6 +10,10 @@ Log.Information("Starting Ordering API up");
 
 try
 {
+    builder.Host.AddAppConfigurations();
+    builder.Services.AddConfigurationSettings(builder.Configuration);
+    builder.Services.ConfigureMassTransit();
+
     // Add services to the container.
     builder.Services.AddConfigurationSettings(builder.Configuration);
     builder.Services.AddInfrastructureServices(builder.Configuration);

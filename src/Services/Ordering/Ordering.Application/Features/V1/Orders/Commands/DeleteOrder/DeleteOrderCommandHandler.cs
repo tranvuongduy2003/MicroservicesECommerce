@@ -1,35 +1,31 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
+using Ordering.Application.Common.Exceptions;
 using Ordering.Application.Common.Interfaces;
+using Ordering.Domain.Entities;
 using Serilog;
-using Shared.SeedWork;
 
 namespace Ordering.Application.Features.V1.Orders.Commands.DeleteOrder
 {
-    public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand, ApiResult<long>>
+    public class DeleteOrderCommandHandler : IRequestHandler<DeleteOrderCommand>
     {
-        private readonly IMapper _mapper;
         private readonly IOrderRepository _repository;
         private readonly ILogger _logger;
 
-        public DeleteOrderCommandHandler(IMapper mapper, IOrderRepository repository, ILogger logger)
+        public DeleteOrderCommandHandler(IOrderRepository repository, ILogger logger)
         {
-            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        private const string MethodName = "DeleteOrderCommandHandler";
-
-        public async Task<ApiResult<long>> Handle(DeleteOrderCommand command, CancellationToken cancellationToken)
+        public async Task Handle(DeleteOrderCommand request, CancellationToken cancellationToken)
         {
-            _logger.Information($"BEGIN: {MethodName} - Id: {command.Id}");
+            var orderEntity = await _repository.GetByIdAsync(request.Id);
+            if (orderEntity == null) throw new NotFoundException(nameof(Order), request.Id);
 
-            await _repository.DeleteOrder(command.Id);
+            await _repository.DeleteAsync(orderEntity);
+            await _repository.SaveChangesAsync();
 
-            _logger.Information($"END: {MethodName} - Id: {command.Id}");
-
-            return new ApiSuccesResult<long>(command.Id);
+            _logger.Information($"Order {orderEntity.Id} was successfully deleted.");
         }
     }
 }

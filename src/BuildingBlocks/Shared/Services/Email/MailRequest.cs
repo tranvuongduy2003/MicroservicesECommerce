@@ -13,8 +13,10 @@ namespace Shared.Services.Email
 
         public IEnumerable<string> ToAddresses { get; set; } = new List<string>();
 
+        [Required]
         public string Subject { get; set; }
 
+        [Required]
         public string Body { get; set; }
 
         public IFormFileCollection Attachments { get; set; } = null;

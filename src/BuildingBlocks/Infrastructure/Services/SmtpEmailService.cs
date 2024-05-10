@@ -45,6 +45,23 @@ namespace Infrastructure.Services
                 var toAddress = request.ToAddress;
                 emailMessage.To.Add(MailboxAddress.Parse(toAddress));
             }
+
+            try
+            {
+                await _smtpCLient.ConnectAsync(_settings.SmtpServer, _settings.Port, _settings.UseSsl, cancellationToken);
+                await _smtpCLient.AuthenticateAsync(_settings.Username, _settings.Password, cancellationToken);
+                await _smtpCLient.SendAsync(emailMessage, cancellationToken);
+                await _smtpCLient.DisconnectAsync(true, cancellationToken);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message, ex);
+            }
+            finally
+            {
+                await _smtpCLient.DisconnectAsync(true, cancellationToken);
+                _smtpCLient.Dispose();
+            }
         }
     }
 }

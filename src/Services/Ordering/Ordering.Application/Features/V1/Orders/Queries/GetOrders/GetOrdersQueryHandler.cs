@@ -26,7 +26,7 @@ namespace Ordering.Application.Features.V1.Orders.Queries.GetOrders
         {
             _logger.Information($"BEGIN: {MethodName} - Username: {request.UserName}");
 
-            var orderEntities = await _repository.GetOrdersByUserName(request.UserName);
+            var orderEntities = await _repository.GetOrdersByUserNameAsync(request.UserName);
             var orderList = _mapper.Map<List<OrderDto>>(orderEntities);
 
             _logger.Information($"END: {MethodName} - Username: {request.UserName}");
