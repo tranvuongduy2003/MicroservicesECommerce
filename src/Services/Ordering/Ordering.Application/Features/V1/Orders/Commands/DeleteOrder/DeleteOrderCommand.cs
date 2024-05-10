@@ -1,8 +1,9 @@
 ﻿using MediatR;
+using Shared.SeedWork;
 
 namespace Ordering.Application.Features.V1.Orders.Commands.DeleteOrder
 {
-    public class DeleteOrderCommand : IRequest
+    public class DeleteOrderCommand : IRequest<ApiResult<long>>
     {
         public long Id { get; private set; }
 

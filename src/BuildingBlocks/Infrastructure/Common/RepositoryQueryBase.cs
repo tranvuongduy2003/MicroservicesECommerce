@@ -13,7 +13,7 @@ namespace Infrastructure.Common
 
         public RepositoryQueryBase(TContext dbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext;
         }
 
         public IQueryable<T> FindAll(bool trackChanges = false) =>

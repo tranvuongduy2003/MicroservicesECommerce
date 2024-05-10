@@ -9,7 +9,7 @@ namespace Ordering.Application.Common.Interfaces
 
         Task<Order> GetOrder(long id);
 
-        Task CreateOrder(Order order);
+        Task<long> CreateOrder(Order order);
 
         Task UpdateOrder(Order order);
 

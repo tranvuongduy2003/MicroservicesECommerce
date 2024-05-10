@@ -1,11 +1,12 @@
 ﻿using MediatR;
 using Ordering.Application.Common.Mappings;
+using Ordering.Application.Common.Models;
 using Ordering.Domain.Entities;
 using Shared.SeedWork;
 
 namespace Ordering.Application.Features.V1.Orders.Commands.UpdateOrder
 {
-    public class UpdateOrderCommand : IRequest<ApiResult<long>>, IMapFrom<Order>
+    public class UpdateOrderCommand : IRequest<ApiResult<OrderDto>>, IMapFrom<Order>
     {
         public long Id { get; set; }
 

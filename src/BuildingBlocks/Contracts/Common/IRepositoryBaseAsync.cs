@@ -32,13 +32,13 @@ namespace Contracts.Common
     }
 
     public interface IRepositoryQueryAsync<T, K, TContext>
-        : IRepositoryBaseAsync<T, K>
+        : IRepositoryQueryAsync<T, K>
         where T : EntityBase<K>
         where TContext : DbContext
     {
     }
 
-    public interface IRepositoryBaseAsync<T, K, TContext> : IRepositoryQueryAsync<T, K>
+    public interface IRepositoryBaseAsync<T, K, TContext> : IRepositoryBaseAsync<T, K>
         where T : EntityBase<K>
         where TContext : DbContext
     {

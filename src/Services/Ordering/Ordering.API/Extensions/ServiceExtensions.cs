@@ -8,6 +8,7 @@ namespace Ordering.API.Extensions
         {
             var emailSettings = configuration.GetSection(nameof(SmtpEmailSettings))
                 .Get<SmtpEmailSettings>();
+
             services.AddSingleton(emailSettings);
 
             return services;
